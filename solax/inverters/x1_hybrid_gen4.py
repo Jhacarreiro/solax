@@ -48,7 +48,7 @@ class X1HybridGen4(Inverter):
             "On-grid total yield": (pack_u16(11, 12), Total(Units.KWH), div10),
             "On-grid daily yield": (13, DailyTotal(Units.KWH), div10),
             "Battery voltage": (14, Units.V, div100),
-            "Battery current": (15, Units.A, div100),
+            "Battery current": (15, Units.A, to_signed, div100),
             "Battery power": (16, Units.W, to_signed),
             "Battery temperature": (17, Units.C),
             "Battery SoC": (18, Units.PERCENT),
