@@ -11,7 +11,8 @@ class X1HybridGen4(Inverter):
     # pylint: disable=duplicate-code
     _schema = vol.Schema(
         {
-            vol.Required("type"): vol.All(int, 15),
+            vol.Required("type"): vol.All(int, vol.Any(15, 34)),
+
             vol.Required(
                 "sn",
             ): str,
