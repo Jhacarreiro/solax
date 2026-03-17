@@ -61,6 +61,27 @@ class X1HybridGen4(Inverter):
             "EPS power": (28, Units.W, to_signed),
             "EPS voltage": (29, Units.V, div10),
             "EPS current": (30, Units.A, to_signed, div10),
+            "Total PV Energy": (54, Total(Units.KWH), div10),
+            "EPS Energy total": (83, Total(Units.KWH), div10),
+            "EPS Energy today": (84, DailyTotal(Units.KWH), div10),
+            "Total battery discharge energy": (19, Total(Units.KWH), div10),
+            "Total battery charge energy": (21, Total(Units.KWH), div10),
+            "PV daily yield": (85, DailyTotal(Units.KWH), div10),
+            "Battery discharge energy today": (86, DailyTotal(Units.KWH), div10),
+            "Battery charge energy today": (87, DailyTotal(Units.KWH), div10),
+            "Battery health": (24, Units.PERCENT),
+            "Radiator temperature": (39, Units.C, to_signed),
+            "Load power": (38, Units.W),
+            "Feed-in energy today": (78, DailyTotal(Units.KWH), div100),
+            "Grid import energy today": (80, DailyTotal(Units.KWH), div100),
+            "Consumption today": (52, DailyTotal(Units.KWH), div100),
+            # 40: 256 (0x100), possible status/fault bitmask
+            # 41-42: unknown, possibly redundant battery charge/discharge counters
+            # 44: ~= Battery charge energy today * 100, likely redundant
+            # 45-46: unknown, slowly changing values
+            # 47: similar to Load power [38], likely redundant
+            # 76: /10=0.4, likely redundant with Grid import energy today [80]
+            # 56-59: large values (60928, 65535...), possibly encoded firmware/timestamp data
         }
 
     @classmethod
