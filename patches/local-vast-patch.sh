@@ -46,7 +46,7 @@ async def real_time_api(ip_address, port=80, pwd=\"\"):
     i = await discover(
         ip_address, port, pwd,
         inverters=[X1HybridGen4],
-        return_when=asyncio.ALL_COMPLETED,
+        return_when=asyncio.FIRST_COMPLETED,
     )
     return RealTimeAPI(i)
 class RealTimeAPI:
