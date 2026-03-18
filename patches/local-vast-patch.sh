@@ -1,7 +1,8 @@
 #!/bin/sh
 # Local patch for X1-VAST behind HTTPS reverse proxy.
 # The dongle only handles 1 request at a time, so we skip full discovery
-# and target X1HybridGen4 directly.
+# and target X1HybridGen4 directly. Also copies the updated decoder
+# with X1-VAST (type 34) support.
 #
 # Usage: curl -s https://raw.githubusercontent.com/Jhacarreiro/solax/master/patches/local-vast-patch.sh | sh
 
@@ -54,6 +55,11 @@ class RealTimeAPI:
     async def get_data(self) -> InverterResponse:
         return await rt_request(self.inverter, 3)
 PYEOF"
+
+echo "=== Patching x1_hybrid_gen4.py (X1-VAST type 34 decoder) ==="
+curl -s https://raw.githubusercontent.com/Jhacarreiro/solax/x1-vast-pr/solax/inverters/x1_hybrid_gen4.py -o /tmp/x1_hybrid_gen4.py
+docker cp /tmp/x1_hybrid_gen4.py $CONTAINER:$PKG/inverters/x1_hybrid_gen4.py
+rm -f /tmp/x1_hybrid_gen4.py
 
 echo "=== Restarting $CONTAINER ==="
 docker restart $CONTAINER
